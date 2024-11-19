@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byself - Generator Afirmasi</title>
+    <style>
+        /* Styling umum */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF6EB;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .byself {
+            font-family: Georgia, serif;
+            font-size: 36px;
+            color: pink;
+            margin-bottom: 10px;
+        }
+        .afirmasi {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #514bd1;
+        }
+        .affirmation-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            font-size: 18px;
+            font-style: italic;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <img src="byself logo.png" alt="Logo" class="logo">
+        <div class="byself">byself</div>
+        <div class="afirmasi">Afirmasi</div>
+        <input type="text" id="prompt" placeholder="Masukkan prompt Anda...">
+        <button onclick="generateAffirmation()">Generate</button>
+        <div class="affirmation-container" id="affirmation"></div>
+    </div>
+
+    <script>
+        // Data afirmasi
+        const affirmationData = {
+            sedih: [
+                "Kesedihanmu valid, tetapi jangan biarkan itu menghalangimu mencapai kebahagiaan.",
+                "Setiap air mata adalah langkah menuju kebahagiaan yang lebih besar.",
+                "Kamu berhak merasakan sedih, tetapi ingatlah bahwa ini hanya sementara."
+            ],
+            menyerah: [
+                "Jangan menyerah yaa! kesulitan ini hanya sementara. Kamu lebih kuat dari yang kamu kira.",
+                "Saat kamu ingin menyerah, ingat mengapa kamu memulai.",
+                "Kamu telah melewati banyak hal, jangan menyerah sekarang."
+            ],
+            "patah hati": [
+                "Patah hati adalah cara semesta menunjukkan bahwa ada sesuatu yang lebih baik untukmu.",
+                "Ini mungkin menyakitkan sekarang, tetapi waktu akan menyembuhkan luka ini.",
+                "Patah hati adalah bukti bahwa kamu berani mencintai."
+            ],
+            "tidak semangat": [
+                "Tidak apa-apa merasa lelah. Beristirahatlah sejenak dan kembali dengan semangat baru.",
+                "Jangan terlalu keras pada dirimu sendiri. Kamu sudah melakukan yang terbaik.",
+                "Ambil napas dalam-dalam, fokus pada satu langkah kecil, dan terus maju."
+            ],
+            menenangkan: [
+                "Tarik napas dalam-dalam. Segalanya akan baik-baik saja.",
+                "Kamu dikelilingi oleh cinta dan dukungan, meski kadang tak terlihat.",
+                "Saat dunia terasa berat, jangan ragu untuk meminta bantuan."
+            ],
+            capek: [
+                "Aku berhak istirahat sejenak, tubuhku butuh waktu untuk kembali kuat.",
+                "Capek ini pertanda aku sudah berusaha. Aku pantas merayakan setiap langkah kecil yang kulakukan.",
+                "Aku sadar tubuhku meminta istirahat, dan aku memilih untuk mendengarkan. Aku tidak harus selalu kuat."
+            ]
+        };
+
+        // Fungsi untuk menghasilkan afirmasi
+        function generateAffirmation() {
+            const prompt = document.getElementById("prompt").value.toLowerCase();
+            let selectedAffirmations = [];
+
+            // Cek kata kunci dalam prompt
+            for (const [keyword, affirmations] of Object.entries(affirmationData)) {
+                if (prompt.includes(keyword)) {
+                    selectedAffirmations = affirmations;
+                    break;
+                }
+            }
+
+            // Jika tidak ada kata kunci, gunakan afirmasi umum
+            if (selectedAffirmations.length === 0) {
+                selectedAffirmations = [
+                    "Kamu mampu mencapai hal-hal hebat.",
+                    "Kamu punya kekuatan untuk mengatasi tantangan.",
+                    "Potensimu tidak terbatas.",
+                    "Setiap kemunduran adalah peluang untuk berkembang.",
+                    "Kegagalan hanyalah langkah menuju kesuksesan.",
+                    "Hari ini adalah awal baru untuk mencapai impianmu.",
+                    "Percayalah pada dirimu sendiri, kamu lebih kuat dari yang kamu kira.",
+                    "Langkah kecil pun adalah kemajuan yang luar biasa.",
+                    "Setiap hari adalah kesempatan untuk menjadi versi terbaik dirimu.",
+                    "Kamu dikelilingi oleh kesempatan yang menunggu untuk diambil."
+                ];
+            }
+
+            // Pilih afirmasi acak
+            const randomIndex = Math.floor(Math.random() * selectedAffirmations.length);
+            const randomAffirmation = selectedAffirmations[randomIndex];
+
+            // Tampilkan afirmasi
+            document.getElementById("affirmation").innerText = randomAffirmation;
+        }
+    </script>
+</body>
+</html>
